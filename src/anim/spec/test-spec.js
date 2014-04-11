@@ -1,4 +1,6 @@
-
+function getAngle(){
+  return 1;
+}
 
 describe('Compass', function() {
   describe('counter: 1', function(){
