@@ -1,5 +1,10 @@
 function getAngle(counter){
   angle = counter % 360;
+
+  if(angle < 0){
+    angle = 360 + angle;
+  }
+
   return angle;
 }
 
@@ -17,8 +22,14 @@ describe('Compass', function() {
   });
 
   describe('counter: 360', function(){
-    it('should return 1°', function() {
+    it('should return 0°', function() {
       expect(getAngle(360)).toBe(0);
+    });
+  });
+
+  describe('counter: -1', function(){
+    it('should return 359°', function() {
+      expect(getAngle(-1)).toBe(359);
     });
   });
 });
