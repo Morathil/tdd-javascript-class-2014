@@ -1,3 +1,5 @@
+var jQuery = require('jquery');
+
 function getAngle(counter){
   angle = counter % 360;
 
@@ -6,6 +8,18 @@ function getAngle(counter){
   }
 
   return angle;
+}
+
+
+function Image(textId, imgId){
+  this.textId = textId;
+  this.imgId = imgId;
+}
+
+Image.prototype = {
+  showText: function(domId, angle){
+    jQuery('#' + this.textId).html(angle)
+  }
 }
 
 describe('Compass', function() {
@@ -35,4 +49,18 @@ describe('Compass', function() {
     });
   });
 
+  describe('showText', function(){
+    beforeEach(function(){
+      spyOn(Image.prototype, 'showText');
+    });
+
+    describe('angle: 1', function(){
+      it('should call html', function(){
+        image = new Image()
+        image.showText(1)
+        expect(Image.prototype.showText)
+          .toHaveBeenCalledWith(1);
+      });
+    });
+  });
 });
