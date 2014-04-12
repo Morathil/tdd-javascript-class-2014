@@ -28,6 +28,7 @@ Image.prototype = {
   showAndRotate: function(counter){
     angle = this.getAngle(counter);
     this.show(angle);
+    this.showText(angle);
   }
 }
 
@@ -79,12 +80,20 @@ describe('Compass', function() {
   describe('showAndRotateImage', function(){
     beforeEach(function(){
       spyOn(Image.prototype, 'show');
+      spyOn(Image.prototype, 'showText');
     });
     describe('with counter 1', function(){
       it('should call show with 1', function(){
         image = new Image();
         image.showAndRotate(1);
         expect(Image.prototype.show)
+          .toHaveBeenCalledWith(1)
+      });
+
+      it('should call showText with 1', function(){
+        image = new Image();
+        image.showAndRotate(1);
+        expect(Image.prototype.showText)
           .toHaveBeenCalledWith(1)
       });
     })
