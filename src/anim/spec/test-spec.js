@@ -4,7 +4,14 @@ function Image(textId, imgId){
   this.textId = textId;
   this.imgId = imgId;
   this.compassMap = {
-    0: 'N'
+    0: 'N',
+    45: 'NE',
+    90: 'E',
+    135: 'SE',
+    180: 'S',
+    225: 'SW',
+    270: 'W',
+    315: 'NW'
   }
 }
 
@@ -111,6 +118,69 @@ describe('Compass', function() {
         image.showAndRotate(0);
         expect(Image.prototype.showText)
           .toHaveBeenCalledWith('N');
+      });
+    });
+
+    describe('with counter 45', function(){
+      it('should call showText with NE', function(){
+        image = new Image();
+        image.showAndRotate(45);
+        expect(Image.prototype.showText)
+          .toHaveBeenCalledWith('NE');
+      });
+    });
+
+    describe('with counter 90', function(){
+      it('should call showText with E', function(){
+        image = new Image();
+        image.showAndRotate(90);
+        expect(Image.prototype.showText)
+          .toHaveBeenCalledWith('E');
+      });
+    });
+
+    describe('with counter 135', function(){
+      it('should call showText with SE', function(){
+        image = new Image();
+        image.showAndRotate(135);
+        expect(Image.prototype.showText)
+          .toHaveBeenCalledWith('SE');
+      });
+    });
+
+    describe('with counter 180', function(){
+      it('should call showText with S', function(){
+        image = new Image();
+        image.showAndRotate(180);
+        expect(Image.prototype.showText)
+          .toHaveBeenCalledWith('S');
+      });
+    });
+
+    describe('with counter 225', function(){
+      it('should call showText with SW', function(){
+        image = new Image();
+        image.showAndRotate(225);
+        expect(Image.prototype.showText)
+          .toHaveBeenCalledWith('SW');
+      });
+    });
+
+    describe('with counter 270', function(){
+      it('should call showText with W', function(){
+        image = new Image();
+        image.showAndRotate(270);
+        expect(Image.prototype.showText)
+          .toHaveBeenCalledWith('W');
+      });
+    });
+
+    describe('with counter 315', function(){
+      it('should call showText with NW', function(){
+        image = new Image();
+        image.showAndRotate(315);
+        expect(Image.prototype.showText)
+          .toHaveBeenCalledWith('NW');
       });
     });
   });
