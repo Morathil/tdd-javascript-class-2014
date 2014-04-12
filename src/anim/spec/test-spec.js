@@ -3,6 +3,9 @@ var jQuery = require('jquery');
 function Image(textId, imgId){
   this.textId = textId;
   this.imgId = imgId;
+  this.compassMap = {
+    0: 'N'
+  }
 }
 
 Image.prototype = {
@@ -11,8 +14,8 @@ Image.prototype = {
     jQuery('#' + this.imgId).css('webkitTransform', 'rotate(' + angle + 'deg)');
   },
 
-  showText: function(domId, angle){
-    jQuery('#' + this.textId).html(angle)
+  showText: function(domId, text){
+    jQuery('#' + this.textId).html(text)
   },
 
   getAngle: function(counter){
@@ -28,6 +31,11 @@ Image.prototype = {
   showAndRotate: function(counter){
     angle = this.getAngle(counter);
     this.show(angle);
+
+    if(this.compassMap[angle]){
+      angle = this.compassMap[angle];
+    }
+
     this.showText(angle);
   }
 }
@@ -87,15 +95,23 @@ describe('Compass', function() {
         image = new Image();
         image.showAndRotate(1);
         expect(Image.prototype.show)
-          .toHaveBeenCalledWith(1)
+          .toHaveBeenCalledWith(1);
       });
 
       it('should call showText with 1', function(){
         image = new Image();
         image.showAndRotate(1);
         expect(Image.prototype.showText)
-          .toHaveBeenCalledWith(1)
+          .toHaveBeenCalledWith(1);
       });
-    })
+    });
+    describe('with counter 0', function(){
+      it('should call showText with N', function(){
+        image = new Image();
+        image.showAndRotate(0);
+        expect(Image.prototype.showText)
+          .toHaveBeenCalledWith('N');
+      });
+    });
   });
 });
