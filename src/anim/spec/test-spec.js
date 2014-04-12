@@ -1,6 +1,13 @@
 var jQuery = require('jquery');
 
+function mouseWheelHandler(e){
+  image = new Image('textId', 'imgId');
+
+  image.showAndRotate(image.counter);
+}
+
 function Image(textId, imgId){
+  this.counter = 0;
   this.textId = textId;
   this.imgId = imgId;
   this.compassMap = {
@@ -184,4 +191,14 @@ describe('Compass', function() {
       });
     });
   });
+
+  describe('mouseWheelHandler', function(){
+    it('should call showAndRotate', function(){
+      spyOn(Image.prototype, 'showAndRotate');
+      mouseWheelHandler();
+      expect(Image.prototype.showAndRotate)
+        .toHaveBeenCalledWith(0)
+    });
+  });
+
 });
