@@ -2,7 +2,9 @@ var jQuery = require('jquery');
 
 function mouseWheelHandler(e){
   image = new Image('textId', 'imgId');
-
+  if(e.wheelDelta > 0){
+    image.counter++;
+  }
   image.showAndRotate(image.counter);
 }
 
@@ -195,9 +197,16 @@ describe('Compass', function() {
   describe('mouseWheelHandler', function(){
     it('should call showAndRotate', function(){
       spyOn(Image.prototype, 'showAndRotate');
-      mouseWheelHandler();
+      mouseWheelHandler({wheelDelta: 0});
       expect(Image.prototype.showAndRotate)
         .toHaveBeenCalledWith(0)
+    });
+
+    it('should increment counter if wheelDelta > 0', function(){
+      spyOn(Image.prototype, 'showAndRotate');
+      mouseWheelHandler({wheelDelta: 120});
+      expect(Image.prototype.showAndRotate)
+        .toHaveBeenCalledWith(1)
     });
   });
 
