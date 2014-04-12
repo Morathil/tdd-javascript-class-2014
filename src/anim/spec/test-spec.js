@@ -1,7 +1,7 @@
 var jQuery = require('jquery');
 
+var image = new Image('textId', 'imgId');
 function mouseWheelHandler(e){
-  image = new Image('textId', 'imgId');
   if(e.wheelDelta > 0){
     image.counter++;
   } else if(e.wheelDelta < 0) {
@@ -32,7 +32,7 @@ Image.prototype = {
     jQuery('#' + this.imgId).css('webkitTransform', 'rotate(' + angle + 'deg)');
   },
 
-  showText: function(domId, text){
+  showText: function(text){
     jQuery('#' + this.textId).html(text)
   },
 
@@ -57,6 +57,7 @@ Image.prototype = {
     this.showText(angle);
   }
 }
+
 
 describe('Compass', function() {
   describe('getAngle', function(){
@@ -197,6 +198,10 @@ describe('Compass', function() {
   });
 
   describe('mouseWheelHandler', function(){
+    beforeEach(function(){
+      image.counter = 0;
+    });
+
     it('should call showAndRotate', function(){
       spyOn(Image.prototype, 'showAndRotate');
       mouseWheelHandler({wheelDelta: 0});
