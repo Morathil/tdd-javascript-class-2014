@@ -4,6 +4,8 @@ function mouseWheelHandler(e){
   image = new Image('textId', 'imgId');
   if(e.wheelDelta > 0){
     image.counter++;
+  } else if(e.wheelDelta < 0) {
+    image.counter--;
   }
   image.showAndRotate(image.counter);
 }
@@ -207,6 +209,13 @@ describe('Compass', function() {
       mouseWheelHandler({wheelDelta: 120});
       expect(Image.prototype.showAndRotate)
         .toHaveBeenCalledWith(1)
+    });
+
+    it('should decrement counter if wheelDelta < 0', function(){
+      spyOn(Image.prototype, 'showAndRotate');
+      mouseWheelHandler({wheelDelta: -120});
+      expect(Image.prototype.showAndRotate)
+        .toHaveBeenCalledWith(-1)
     });
   });
 
